@@ -1,0 +1,120 @@
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywibmFtZSI6InVzZXIiLCJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTc0ODAwNDkxMywiZXhwIjoxNzQ4MDkxMzEzfQ.c0DK7cVez27D5Zh0cuIcjueE2wvz9g9NNI3yBOkUmCQ
+
+### ✅ Register User Baru
+POST http://localhost:3000/api/users/register
+Content-Type: application/json
+
+{
+  "name": "Johan",
+  "email": "123220113@student.upnyk.ac.id",
+  "password": "12345",
+  "role": "admin"
+}
+
+### ✅ Login User (Admin)
+POST http://localhost:3000/api/users/login
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "raapassword123"
+}
+
+### ✅ Ambil Semua Kendaraan
+GET http://localhost:3000/api/vehicles
+Authorization: Bearer {{token}}
+
+### ✅ Tambah Kendaraan Baru (Admin Saja)
+POST http://localhost:3000/api/vehicles
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "type": "mobil",
+  "brand": "Toyota",
+  "model": "Avanza",
+  "plate_number": "AB1234CD",
+  "price_per_day": 350000,
+  "image_url": "https://example.com/avanza.jpg"
+}
+
+### ✅ Update Kendaraan (Admin Saja)
+PUT http://localhost:3000/api/vehicles/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "price_per_day": 400000,
+  "status": "rented"
+}
+
+### ❌ Hapus Kendaraan (Admin Saja)
+DELETE http://localhost:3000/api/vehicles/1
+Authorization: Bearer {{token}}
+
+### ✅ Buat Sewa Kendaraan (User Login)
+POST http://localhost:3000/api/rentals
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "vehicle_id": 1,
+  "start_date": "2025-05-25",
+  "end_date": "2025-05-27",
+  "total_price": 700000
+}
+
+### ✅ Ambil Semua Sewa Milik User Login
+GET http://localhost:3000/api/rentals
+Authorization: Bearer {{token}}
+
+### ✅ Update Status Sewa (Admin Only)
+PUT http://localhost:3000/api/rentals/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "status": "completed"
+}
+
+### ❌ Hapus Sewa (Admin Only)
+DELETE http://localhost:3000/api/rentals/1
+Authorization: Bearer {{token}}
+
+### ✅ Buat Pembayaran untuk Sewa (User Login)
+POST http://localhost:3000/api/payments
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "rental_id": 1,
+  "payment_method": "transfer",
+  "amount": 700000
+}
+
+### ✅ Ambil Semua Pembayaran Milik User Login
+GET http://localhost:3000/api/payments
+Authorization: Bearer {{token}}
+
+### ✅ Update Status Pembayaran (Admin Only)
+PUT http://localhost:3000/api/payments/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "status": "paid"
+}
+
+### ✅ Tambahkan Review (User Login)
+POST http://localhost:3000/api/reviews
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "vehicle_id": 1,
+  "rating": 5,
+  "comment": "Kendaraannya nyaman dan bersih!"
+}
+
+### 🔍 Ambil Semua Review untuk Kendaraan Tertentu
+GET http://localhost:3000/api/reviews/1
