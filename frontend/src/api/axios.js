@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: 'https://backend-projectakhir-122089089856.us-central1.run.app/api',
 });
 
 export default api;
