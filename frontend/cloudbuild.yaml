@@ -1,23 +1,18 @@
 steps:
-  - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', 'gcr.io/b-10-451011/frontend-service', '.' ]
+  - name: 'node:18'
+    entrypoint: 'npm'
+    args: ['install']
     dir: 'frontend'
 
-  - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'push', 'gcr.io/b-10-451011/frontend-service' ]
+  - name: 'node:18'
+    entrypoint: 'npm'
+    args: ['run', 'build']
+    dir: 'frontend'
 
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
-    args: [
-      'run', 'deploy', 'frontend-service',
-      '--image', 'gcr.io/b-10-451011/frontend-service',
-      '--region', 'us-central1',
-      '--platform', 'managed',
-      '--allow-unauthenticated'
-    ]
-
-images:
-  - 'gcr.io/b-10-451011/frontend-service'
+    args: ['app', 'deploy', '--quiet']
+    dir: 'frontend'
 
 options:
   logging: CLOUD_LOGGING_ONLY
