@@ -1,12 +1,12 @@
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywibmFtZSI6InVzZXIiLCJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTc0ODAwNDkxMywiZXhwIjoxNzQ4MDkxMzEzfQ.c0DK7cVez27D5Zh0cuIcjueE2wvz9g9NNI3yBOkUmCQ
+@token = 
 
 ### ✅ Register User Baru
 POST https://backend-projectakhir-122089089856.us-central1.run.app/api/users/register
 Content-Type: application/json
 
 {
-  "name": "Johan",
-  "email": "123220113@student.upnyk.ac.id",
+  "name": "Aku",
+  "email": "Aku@student.upnyk.ac.id",
   "password": "12345",
   "role": "admin"
 }
@@ -21,11 +21,11 @@ Content-Type: application/json
 }
 
 ### ✅ Ambil Semua Kendaraan
-GET http://localhost:3000/api/vehicles
+GET https://backend-projectakhir-122089089856.us-central1.run.app/api/vehicles
 Authorization: Bearer {{token}}
 
 ### ✅ Tambah Kendaraan Baru (Admin Saja)
-POST http://localhost:3000/api/vehicles
+POST https://backend-projectakhir-122089089856.us-central1.run.app/api/vehicles
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -39,7 +39,7 @@ Authorization: Bearer {{token}}
 }
 
 ### ✅ Update Kendaraan (Admin Saja)
-PUT http://localhost:3000/api/vehicles/1
+PUT https://backend-projectakhir-122089089856.us-central1.run.app/api/vehicles/1
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -49,11 +49,11 @@ Authorization: Bearer {{token}}
 }
 
 ### ❌ Hapus Kendaraan (Admin Saja)
-DELETE http://localhost:3000/api/vehicles/1
+DELETE https://backend-projectakhir-122089089856.us-central1.run.app/api/vehicles/1
 Authorization: Bearer {{token}}
 
 ### ✅ Buat Sewa Kendaraan (User Login)
-POST http://localhost:3000/api/rentals
+POST https://backend-projectakhir-122089089856.us-central1.run.app/api/rentals
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -65,11 +65,11 @@ Authorization: Bearer {{token}}
 }
 
 ### ✅ Ambil Semua Sewa Milik User Login
-GET http://localhost:3000/api/rentals
+GET https://backend-projectakhir-122089089856.us-central1.run.app/api/rentals
 Authorization: Bearer {{token}}
 
 ### ✅ Update Status Sewa (Admin Only)
-PUT http://localhost:3000/api/rentals/1
+PUT https://backend-projectakhir-122089089856.us-central1.run.app/api/rentals/1
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -78,11 +78,11 @@ Authorization: Bearer {{token}}
 }
 
 ### ❌ Hapus Sewa (Admin Only)
-DELETE http://localhost:3000/api/rentals/1
+DELETE https://backend-projectakhir-122089089856.us-central1.run.app/api/rentals/1
 Authorization: Bearer {{token}}
 
 ### ✅ Buat Pembayaran untuk Sewa (User Login)
-POST http://localhost:3000/api/payments
+POST https://backend-projectakhir-122089089856.us-central1.run.app/api/payments
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -93,11 +93,11 @@ Authorization: Bearer {{token}}
 }
 
 ### ✅ Ambil Semua Pembayaran Milik User Login
-GET http://localhost:3000/api/payments
+GET https://backend-projectakhir-122089089856.us-central1.run.app/api/payments
 Authorization: Bearer {{token}}
 
 ### ✅ Update Status Pembayaran (Admin Only)
-PUT http://localhost:3000/api/payments/1
+PUT https://backend-projectakhir-122089089856.us-central1.run.app/api/payments/1
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -106,7 +106,7 @@ Authorization: Bearer {{token}}
 }
 
 ### ✅ Tambahkan Review (User Login)
-POST http://localhost:3000/api/reviews
+POST https://backend-projectakhir-122089089856.us-central1.run.app/api/reviews
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -117,4 +117,4 @@ Authorization: Bearer {{token}}
 }
 
 ### 🔍 Ambil Semua Review untuk Kendaraan Tertentu
-GET http://localhost:3000/api/reviews/1
+GET https://backend-projectakhir-122089089856.us-central1.run.app/api/reviews/1
