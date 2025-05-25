@@ -25,9 +25,10 @@ const connectDB = async () => {
     await db.authenticate();
     console.log('✅ Koneksi database berhasil!');
   } catch (error) {
-    console.error('❌ Gagal koneksi ke database:', error);
+    console.error('❌ Gagal koneksi ke database:', error.message);
   }
 };
+
 
 connectDB();
 
