@@ -1,3 +1,6 @@
+substitutions:
+  _ENV: "gs://rentalkendaraan/.env"
+
 steps:
   - name: "gcr.io/cloud-builders/gsutil"
     args: ["cp", "${_ENV}", ".env"]
