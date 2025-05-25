@@ -3,6 +3,16 @@ steps:
     args: [ 'build', '-t', 'gcr.io/b-10-451011/frontend-service', '.' ]
   - name: 'gcr.io/cloud-builders/docker'
     args: [ 'push', 'gcr.io/b-10-451011/frontend-service' ]
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      [
+        'run', 'deploy', 'frontend-service',
+        '--image', 'gcr.io/b-10-451011/frontend-service',
+        '--platform', 'managed',
+        '--region', 'us-central1',
+        '--allow-unauthenticated'
+      ]
 
 images:
   - 'gcr.io/b-10-451011/frontend-service'
