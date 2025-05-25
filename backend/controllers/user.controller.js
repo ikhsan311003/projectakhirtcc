@@ -29,33 +29,37 @@ export const register = async (req, res) => {
 // Login
 export const login = async (req, res) => {
   const { email, password } = req.body;
-  console.log('🟡 Incoming login request:', email);
+  console.log('🟡 Login request:', email); // Tambahan
 
   try {
     const user = await User.findOne({ where: { email } });
     if (!user) {
-      console.log('🔴 User tidak ditemukan');
+      console.log('🔴 User tidak ditemukan:', email);
       return res.status(404).json({ message: 'User tidak ditemukan' });
     }
 
     const match = await bcrypt.compare(password, user.password);
     if (!match) {
-      console.log('🔴 Password salah');
+      console.log('🔴 Password salah:', email);
       return res.status(401).json({ message: 'Password salah' });
     }
 
-    const token = jwt.sign({
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      role: user.role
-    }, process.env.JWT_SECRET, { expiresIn: '1d' });
+    const token = jwt.sign(
+      {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: '1d' }
+    );
 
     console.log('✅ Login berhasil:', email);
     res.status(200).json({ message: 'Login berhasil', token });
 
   } catch (err) {
-    console.error('🔥 ERROR login:', err.message);
-    res.status(500).json({ error: err.message });
+    console.error('🔥 ERROR LOGIN:', err); // ✅ ini penting agar error terlihat
+    res.status(500).json({ error: 'Login error: ' + err.message });
   }
 };
