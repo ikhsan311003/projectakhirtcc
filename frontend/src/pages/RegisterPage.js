@@ -67,7 +67,7 @@ const RegisterPage = () => {
         </form>
         <p style={styles.loginText}>
           Sudah punya akun?{' '}
-          <Link href="/login" style={styles.loginLink}>Masuk di sini</Link>
+          <Link to="/login" style={styles.loginLink}>Masuk di sini</Link>
         </p>
       </div>
     </div>

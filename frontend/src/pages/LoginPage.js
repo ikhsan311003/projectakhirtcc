@@ -53,8 +53,9 @@ const LoginPage = () => {
         </form>
         <p style={styles.registerText}>
           Belum punya akun?{' '}
-          <Link href="/register" style={styles.registerLink}>Daftar di sini</Link>
+          <Link to="/register" style={styles.registerLink}>Daftar di sini</Link>
         </p>
+
       </div>
     </div>
   );
