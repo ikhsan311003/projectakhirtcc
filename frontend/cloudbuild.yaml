@@ -16,3 +16,6 @@ steps:
 
 images:
   - 'gcr.io/b-10-451011/frontend-service'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
