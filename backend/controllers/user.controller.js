@@ -50,7 +50,7 @@ export const login = async (req, res) => {
         email: user.email,
         role: user.role
       },
-      process.env.ACCESS_TOKEN_SECRET, // ✅ ganti dari JWT_SECRET
+      process.env.ACCESS_TOKEN_SECRET, 
       { expiresIn: '1d' }
     );
 

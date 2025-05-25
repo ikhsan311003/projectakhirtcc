@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import api from '../api/axios';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -66,7 +67,7 @@ const RegisterPage = () => {
         </form>
         <p style={styles.loginText}>
           Sudah punya akun?{' '}
-          <a href="/login" style={styles.loginLink}>Masuk di sini</a>
+          <Link href="/login" style={styles.loginLink}>Masuk di sini</Link>
         </p>
       </div>
     </div>
