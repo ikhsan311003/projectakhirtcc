@@ -29,18 +29,18 @@ export const register = async (req, res) => {
 // Login
 export const login = async (req, res) => {
   const { email, password } = req.body;
-  console.log('🟡 Login request:', email); // Tambahan
+  console.log('🔐 Login request:', email); // ← Tambahkan log ini
 
   try {
     const user = await User.findOne({ where: { email } });
     if (!user) {
-      console.log('🔴 User tidak ditemukan:', email);
+      console.log('❌ User tidak ditemukan');
       return res.status(404).json({ message: 'User tidak ditemukan' });
     }
 
     const match = await bcrypt.compare(password, user.password);
     if (!match) {
-      console.log('🔴 Password salah:', email);
+      console.log('❌ Password salah');
       return res.status(401).json({ message: 'Password salah' });
     }
 
@@ -55,11 +55,11 @@ export const login = async (req, res) => {
       { expiresIn: '1d' }
     );
 
-    console.log('✅ Login berhasil:', email);
+    console.log('✅ Login berhasil untuk:', email);
     res.status(200).json({ message: 'Login berhasil', token });
 
   } catch (err) {
-    console.error('🔥 ERROR LOGIN:', err); // ✅ ini penting agar error terlihat
-    res.status(500).json({ error: 'Login error: ' + err.message });
+    console.error('🔥 Error saat login:', err.message); // ← Tambahkan log error
+    res.status(500).json({ error: err.message });
   }
 };
