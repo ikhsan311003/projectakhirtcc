@@ -10,8 +10,11 @@ import { verifyToken, isAdmin } from '../middleware/verifyToken.js';
 
 const router = express.Router();
 
-router.get('/', verifyToken, getVehicles);
-router.get('/:id', verifyToken, getVehicleById);
+// PUBLIK — tampil kendaraan
+router.get('/', getVehicles);
+router.get('/:id', getVehicleById);
+
+// ADMIN — CRUD kendaraan
 router.post('/', verifyToken, isAdmin, createVehicle);
 router.put('/:id', verifyToken, isAdmin, updateVehicle);
 router.delete('/:id', verifyToken, isAdmin, deleteVehicle);

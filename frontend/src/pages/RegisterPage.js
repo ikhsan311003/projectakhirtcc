@@ -9,7 +9,6 @@ const RegisterPage = () => {
     name: '',
     email: '',
     password: '',
-    role: 'user',
   });
 
   const handleChange = (e) => {

@@ -16,7 +16,7 @@ export const register = async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      role: 'user' // ⛔️ role dikunci hanya "user"
+      role: 'user'
     });
 
     res.status(201).json({ message: 'User berhasil didaftarkan', user });
@@ -25,11 +25,10 @@ export const register = async (req, res) => {
   }
 };
 
-
 // Login
 export const login = async (req, res) => {
   const { email, password } = req.body;
-  console.log('🔐 Login request:', email); // ← Tambahkan log ini
+  console.log('🔐 Login request:', email);
 
   try {
     const user = await User.findOne({ where: { email } });
@@ -51,7 +50,7 @@ export const login = async (req, res) => {
         email: user.email,
         role: user.role
       },
-      process.env.JWT_SECRET,
+      process.env.ACCESS_TOKEN_SECRET, // ✅ ganti dari JWT_SECRET
       { expiresIn: '1d' }
     );
 
@@ -59,8 +58,7 @@ export const login = async (req, res) => {
     res.status(200).json({ message: 'Login berhasil', token });
 
   } catch (err) {
-    console.error('🔥 Error saat login:', err); // tampilkan seluruh objek
+    console.error('🔥 Error saat login:', err);
     res.status(500).json({ error: err.message || 'Unknown server error' });
-    }
-
+  }
 };

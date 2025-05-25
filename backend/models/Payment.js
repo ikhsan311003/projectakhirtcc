@@ -1,6 +1,5 @@
 import { DataTypes } from 'sequelize';
 import db from '../config/database.js';
-import Rental from './Rental.js';
 
 const Payment = db.define('payments', {
   rental_id: {
@@ -26,8 +25,5 @@ const Payment = db.define('payments', {
 }, {
   timestamps: false
 });
-
-Rental.hasOne(Payment, { foreignKey: 'rental_id' });
-Payment.belongsTo(Rental, { foreignKey: 'rental_id' });
 
 export default Payment;

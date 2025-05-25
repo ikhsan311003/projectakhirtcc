@@ -5,13 +5,13 @@ export const getMyRentals = async (req, res) => {
   try {
     const rentals = await Rental.findAll({
       where: { user_id: req.user.id },
-      include: [
-        { model: Vehicle, as: 'vehicle' }
-      ]
+      include: [{ model: Vehicle, as: 'vehicle' }],
+      order: [['created_at', 'DESC']]
     });
     res.json(rentals);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error('❌ Error getMyRentals:', err);
+    res.status(500).json({ error: 'Gagal mengambil data penyewaan Anda' });
   }
 };
 
@@ -22,12 +22,13 @@ export const getAllRentals = async (req, res) => {
       include: [
         { model: User },
         { model: Vehicle, as: 'vehicle' }
-      ]
+      ],
+      order: [['created_at', 'DESC']]
     });
     res.json(rentals);
   } catch (err) {
-    console.error('❌ Error saat ambil semua sewa:', err.message);
-    res.status(500).json({ error: err.message });
+    console.error('❌ Error getAllRentals:', err);
+    res.status(500).json({ error: 'Gagal mengambil semua data penyewaan' });
   }
 };
 
@@ -36,18 +37,23 @@ export const createRental = async (req, res) => {
   try {
     const { vehicle_id, start_date, end_date, total_price } = req.body;
 
+    if (!vehicle_id || !start_date || !end_date || !total_price) {
+      return res.status(400).json({ message: 'Data penyewaan tidak lengkap' });
+    }
+
     const rental = await Rental.create({
       user_id: req.user.id,
       vehicle_id,
       start_date,
       end_date,
       total_price,
-      status: 'booked' // Status awal, belum disewa sampai payment = paid
+      status: 'booked'
     });
 
     res.status(201).json({ message: 'Penyewaan berhasil dibuat', rental });
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    console.error('❌ Error createRental:', err);
+    res.status(400).json({ error: 'Gagal membuat penyewaan' });
   }
 };
 
@@ -61,16 +67,20 @@ export const updateRentalStatus = async (req, res) => {
     if (!rental) return res.status(404).json({ message: 'Sewa tidak ditemukan' });
 
     const newStatus = req.body.status;
+    if (!['booked', 'ongoing', 'completed', 'cancelled'].includes(newStatus)) {
+      return res.status(400).json({ message: 'Status tidak valid' });
+    }
+
     await rental.update({ status: newStatus });
 
-    // ✅ Jika status jadi 'completed', kendaraan harus available lagi
     if (newStatus === 'completed' && rental.vehicle) {
       await rental.vehicle.update({ status: 'available' });
     }
 
     res.json({ message: 'Status sewa diperbarui', rental });
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    console.error('❌ Error updateRentalStatus:', err);
+    res.status(400).json({ error: 'Gagal memperbarui status sewa' });
   }
 };
 
@@ -83,6 +93,7 @@ export const deleteRental = async (req, res) => {
     await rental.destroy();
     res.json({ message: 'Sewa berhasil dihapus' });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error('❌ Error deleteRental:', err);
+    res.status(500).json({ error: 'Gagal menghapus sewa' });
   }
 };

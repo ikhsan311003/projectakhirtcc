@@ -1,7 +1,5 @@
 import { DataTypes } from 'sequelize';
 import db from '../config/database.js';
-import User from './User.js';
-import Vehicle from './Vehicle.js';
 
 const Rental = db.define('rentals', {
   user_id: {
@@ -32,17 +30,6 @@ const Rental = db.define('rentals', {
   timestamps: true,
   createdAt: 'created_at',
   updatedAt: false
-});
-
-// 🔗 Relasi dengan User
-User.hasMany(Rental, { foreignKey: 'user_id' });
-Rental.belongsTo(User, { foreignKey: 'user_id' });
-
-// 🔗 Relasi dengan Vehicle (DILENGKAPI ALIAS)
-Vehicle.hasMany(Rental, { foreignKey: 'vehicle_id' });
-Rental.belongsTo(Vehicle, {
-  foreignKey: 'vehicle_id',
-  as: 'vehicle' // ✅ Penting agar bisa di-include di controller
 });
 
 export default Rental;
