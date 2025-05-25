@@ -1,20 +1,19 @@
-# Gunakan image node
-FROM node:20-alpine
+# Tahap 1: Build React app
+FROM node:20-alpine as build
 
-# Set direktori kerja di container
 WORKDIR /app
-
-# Copy file package.json dan package-lock.json
-COPY package*.json ./
-
-# Install dependency
-RUN npm install
-
-# Salin seluruh project ke container
 COPY . .
+RUN npm install
+RUN npm run build
 
-# Jalankan app (React default port 3000)
-EXPOSE 3000
+# Tahap 2: Gunakan Nginx untuk serve hasil build
+FROM nginx:alpine
 
-# Jalankan React App
-CMD ["npm", "start"]
+# Copy hasil build ke folder default Nginx
+COPY --from=build /app/build /usr/share/nginx/html
+
+# Expose port 80 untuk Cloud Run
+EXPOSE 80
+
+# Jalankan Nginx
+CMD ["nginx", "-g", "daemon off;"]
