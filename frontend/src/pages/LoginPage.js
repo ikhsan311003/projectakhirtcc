@@ -11,6 +11,8 @@ const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
+      console.log('📦 Axios baseURL:', api.defaults.baseURL);
+
       const res = await api.post('/users/login', { email, password });
       localStorage.setItem('token', res.data.token);
       toast.success('🔥 Login berhasil! Mengarahkan ke dashboard...');
@@ -18,6 +20,7 @@ const LoginPage = () => {
         navigate('/dashboard');
       }, 1500);
     } catch (err) {
+      console.error('❌ Error saat login:', err?.response?.config?.url);
       toast.error(err.response?.data?.message || '❌ Gagal login');
     }
   };
