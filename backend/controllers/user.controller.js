@@ -59,7 +59,8 @@ export const login = async (req, res) => {
     res.status(200).json({ message: 'Login berhasil', token });
 
   } catch (err) {
-    console.error('🔥 Error saat login:', err.message); // ← Tambahkan log error
-    res.status(500).json({ error: err.message });
-  }
+    console.error('🔥 Error saat login:', err); // tampilkan seluruh objek
+    res.status(500).json({ error: err.message || 'Unknown server error' });
+    }
+
 };
