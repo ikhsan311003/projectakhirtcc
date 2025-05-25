@@ -1,11 +1,20 @@
+# Gunakan image node
 FROM node:20-alpine
+
+# Set direktori kerja di container
 WORKDIR /app
-COPY . .
+
+# Copy file package.json dan package-lock.json
+COPY package*.json ./
+
+# Install dependency
 RUN npm install
 
-# Set host agar bisa diakses dari luar container
-ENV HOST 0.0.0.0
-ENV PORT 8080
+# Salin seluruh project ke container
+COPY . .
 
-EXPOSE 8080
+# Jalankan app (React default port 3000)
+EXPOSE 3000
+
+# Jalankan React App
 CMD ["npm", "start"]
