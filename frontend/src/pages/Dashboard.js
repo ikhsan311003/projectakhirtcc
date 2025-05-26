@@ -1,4 +1,3 @@
-// src/pages/Dashboard.js
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api/axios';
@@ -191,7 +190,7 @@ const Dashboard = () => {
 };
 
 const styles = {
-  container: { minHeight: '100vh', padding: '100px 20px 20px', background: '#0f0f1a', color: '#fff' },
+  container: { minHeight: '100vh', padding: '100px 20px 20px', background: '#0f0f1a', color: '#fff', maxWidth: 1200, margin: '0 auto' },
   navbar: {
     position: 'fixed', top: 0, left: 0, right: 0, height: 60, background: '#0f0f1a',
     display: 'flex', alignItems: 'center', gap: 12, padding: '0 20px', zIndex: 999, boxShadow: '0 2px 6px rgba(0,0,0,0.4)'
@@ -233,7 +232,7 @@ const styles = {
   },
   card: {
     background: '#2d223f', padding: 12, borderRadius: 20, textAlign: 'center',
-    width: '100%', maxWidth: 180, cursor: 'pointer', boxShadow: '0 4px 10px rgba(0,0,0,0.5)'
+    width: '100%', maxWidth: 160, cursor: 'pointer', boxShadow: '0 4px 10px rgba(0,0,0,0.5)'
   },
   image: { width: '100%', height: 120, objectFit: 'cover', borderRadius: 12, marginBottom: 8 },
   cardTitle: { fontSize: 14, fontWeight: 'bold', marginBottom: 4 },

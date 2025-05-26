@@ -2,6 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import db from './config/database.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 import userRoutes from './routes/user.routes.js';
 import vehicleRoutes from './routes/vehicle.routes.js';
@@ -16,37 +18,38 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Routing
+// API Routing
 app.use('/api/users', userRoutes);
 app.use('/api/vehicles', vehicleRoutes);
 app.use('/api/rentals', rentalRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/reviews', reviewRoutes);
 
-// Root
-app.get('/', (req, res) => {
-  res.send('API Rental Kendaraan Aktif 🚗🏍️');
-});
-
-// 404 handler
-app.use((req, res) => {
-  res.status(404).json({ message: 'Endpoint tidak ditemukan' });
-});
-
-// Koneksi & Sync DB
+// Koneksi DB
 const connectDB = async () => {
   try {
     await db.authenticate();
     console.log('✅ Koneksi database berhasil!');
-
-    await db.sync(); // ← aktifkan ini jika belum migrasi manual
+    await db.sync(); // Sinkronisasi model
   } catch (error) {
     console.error('❌ Gagal koneksi ke database:', error.message);
     process.exit(1);
   }
 };
-
 connectDB();
+
+// === Konfigurasi untuk serve React build ===
+// Hanya berlaku di production (frontend sudah dibuild)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Serve static files dari frontend React
+app.use(express.static(path.join(__dirname, '../frontend/build')));
+
+// Tangani semua route non-API dengan index.html (untuk React Router)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+});
 
 // Jalankan server
 const PORT = process.env.PORT || 8080;
