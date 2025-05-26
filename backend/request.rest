@@ -1,4 +1,4 @@
-@token = 
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksIm5hbWUiOiJBa3UiLCJlbWFpbCI6IkFrdTFAc3R1ZGVudC51cG55ay5hYy5pZCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzQ4MjIyNTgwLCJleHAiOjE3NDgzMDg5ODB9.l_j88xiMxwaLKEaCYKrTrsvZpO4MqN238DJkqI4rVY4
 
 ### ✅ Register User Baru
 POST https://backend-projectakhir-122089089856.us-central1.run.app/api/users/register
@@ -6,7 +6,7 @@ Content-Type: application/json
 
 {
   "name": "Aku",
-  "email": "Aku@student.upnyk.ac.id",
+  "email": "Aku1@student.upnyk.ac.id",
   "password": "12345",
   "role": "admin"
 }
@@ -16,8 +16,8 @@ POST https://backend-projectakhir-122089089856.us-central1.run.app/api/users/log
 Content-Type: application/json
 
 {
-  "email": "user@example.com",
-  "password": "raapassword123"
+  "email": "Aku1@student.upnyk.ac.id",
+  "password": "12345"
 }
 
 ### ✅ Ambil Semua Kendaraan
