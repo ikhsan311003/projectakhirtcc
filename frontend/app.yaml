@@ -2,17 +2,14 @@ runtime: nodejs20
 instance_class: F1
 
 handlers:
-  # Semua route React diarahkan ke index.html
-  - url: /.*/
+  # Menangani semua permintaan dan arahkan ke index.html
+  - url: /(.*)
     static_files: build/index.html
     upload: build/index.html
 
-  # Semua asset statis
-  - url: /(.*)
-    static_files: build/\1
-    upload: build/(.*)
-    secure: always
-    redirect_http_response_code: 301
+  # Menangani semua file statis di folder build
+  - url: /static
+    static_dir: build/static
 
 env_variables:
   NODE_ENV: production
