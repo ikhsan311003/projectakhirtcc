@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from '../api/axios';
 import { FaArrowLeft } from 'react-icons/fa';
+import SwalBase from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const Swal = withReactContent(SwalBase);
 
 const VehicleDetail = () => {
   const { id } = useParams();
@@ -23,11 +27,10 @@ const VehicleDetail = () => {
         });
         setVehicle(res.data);
 
-        // Ambil review kendaraan
         const reviewRes = await api.get(`/reviews/${id}`);
         setReviews(reviewRes.data);
       } catch {
-        alert('Gagal mengambil detail kendaraan');
+        Swal.fire('Error', 'Gagal mengambil detail kendaraan', 'error');
         navigate('/dashboard');
       }
     };
@@ -35,17 +38,44 @@ const VehicleDetail = () => {
   }, [id, navigate]);
 
   const handleDelete = async () => {
-    const confirm = window.confirm('Yakin ingin menghapus kendaraan ini?');
-    if (!confirm) return;
-    try {
-      const token = localStorage.getItem('token');
-      await api.delete(`/vehicles/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      alert('✅ Kendaraan berhasil dihapus!');
-      navigate('/dashboard');
-    } catch {
-      alert('❌ Gagal menghapus kendaraan');
+    const confirm = await Swal.fire({
+      title: <p>Yakin ingin menghapus kendaraan ini?</p>,
+      html: 'Data kendaraan akan dihapus permanen.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#7928ca',
+      cancelButtonColor: '#333',
+      confirmButtonText: 'Ya, Hapus!',
+      cancelButtonText: 'Batal',
+      background: '#1e1e2f',
+      color: '#fff',
+    });
+
+    if (confirm.isConfirmed) {
+      try {
+        const token = localStorage.getItem('token');
+        await api.delete(`/vehicles/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        await Swal.fire({
+          title: <p>Berhasil!</p>,
+          text: 'Kendaraan berhasil dihapus.',
+          icon: 'success',
+          confirmButtonColor: '#7928ca',
+          background: '#1e1e2f',
+          color: '#fff',
+        });
+        navigate('/dashboard');
+      } catch {
+        await Swal.fire({
+          title: <p>Gagal!</p>,
+          text: 'Gagal menghapus kendaraan.',
+          icon: 'error',
+          confirmButtonColor: '#ff0080',
+          background: '#1e1e2f',
+          color: '#fff',
+        });
+      }
     }
   };
 
@@ -56,13 +86,11 @@ const VehicleDetail = () => {
 
   return (
     <div style={styles.container}>
-      {/* Sticky Navbar */}
       <div style={styles.navbar}>
         <FaArrowLeft size={20} onClick={() => navigate('/dashboard')} style={{ cursor: 'pointer' }} />
         <span style={styles.navTitle}>Detail Kendaraan</span>
       </div>
 
-      {/* Konten Card */}
       <div style={styles.card}>
         <img src={vehicle.image_url} alt={vehicle.model} style={styles.image} />
         <h2 style={styles.vehicleTitle}>{vehicle.brand} {vehicle.model}</h2>
@@ -92,7 +120,6 @@ const VehicleDetail = () => {
         )}
       </div>
 
-      {/* Review Section */}
       {reviews.length > 0 && (
         <div style={{ maxWidth: 600, margin: '40px auto 0' }}>
           <h3 style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 16 }}>Review Pengguna</h3>
