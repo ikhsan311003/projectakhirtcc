@@ -2,30 +2,22 @@ substitutions:
   _ENV: "gs://rentalkendaraan/.env"
 
 steps:
-  # 📥 Step 1: Download .env from Cloud Storage
   - name: "gcr.io/cloud-builders/gsutil"
     args: ["cp", "${_ENV}", ".env"]
-
-  # 🏗️ Step 2: Build Docker image (backend folder)
   - name: 'gcr.io/cloud-builders/docker'
     dir: 'backend'
     args: ['build', '-t', 'gcr.io/b-10-451011/backend-service', '.']
 
-  # 📦 Step 3: Push image to Container Registry
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/b-10-451011/backend-service']
 
-  # 🚀 Step 4: Deploy to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
-    args:
-      - 'run'
-      - 'deploy'
-      - 'backend-service'
-      - '--image=gcr.io/b-10-451011/backend-service'
-      - '--region=us-central1'
-      - '--platform=managed'
-      - '--allow-unauthenticated'
+    args: ['run', 'deploy', 'backend-service',
+           '--image', 'gcr.io/b-10-451011/backend-service',
+           '--region', 'us-central1',
+           '--platform', 'managed',
+           '--allow-unauthenticated']
 
 images:
   - 'gcr.io/b-10-451011/backend-service'
