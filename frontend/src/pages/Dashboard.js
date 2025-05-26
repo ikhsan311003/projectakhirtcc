@@ -232,9 +232,9 @@ const styles = {
   },
   card: {
     background: '#2d223f', padding: 12, borderRadius: 20, textAlign: 'center',
-    width: '100%', maxWidth: 160, cursor: 'pointer', boxShadow: '0 4px 10px rgba(0,0,0,0.5)'
+    width: '100%', maxWidth: 150, cursor: 'pointer', boxShadow: '0 4px 10px rgba(0,0,0,0.5)'
   },
-  image: { width: '100%', height: 120, objectFit: 'cover', borderRadius: 12, marginBottom: 8 },
+  image: { width: '100%', height: 110, objectFit: 'cover', borderRadius: 12, marginBottom: 8 },
   cardTitle: { fontSize: 14, fontWeight: 'bold', marginBottom: 4 },
   text: { fontSize: 12, marginBottom: 2 },
 };
