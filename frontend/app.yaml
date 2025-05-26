@@ -2,10 +2,12 @@ runtime: nodejs20
 instance_class: F1
 
 handlers:
-  - url: /.*
+  # Tangani semua route frontend
+  - url: /.*/
     static_files: build/index.html
     upload: build/index.html
 
+  # Tangani semua file statis React (JS, CSS, dll)
   - url: /(.*)
     static_files: build/\1
     upload: build/(.*)
