@@ -2,15 +2,18 @@ runtime: nodejs20
 instance_class: F1
 
 handlers:
-  - url: /
+  # Tangani file statis dengan tepat
+  - url: /static
+    static_dir: build/static
+
+  - url: /(.*\.(js|css|map|json|png|jpg|jpeg|gif|ico|svg|webp))
+    static_files: build/\1
+    upload: build/.*\.(js|css|map|json|png|jpg|jpeg|gif|ico|svg|webp)
+
+  # Fallback: semua route selain file → index.html (untuk React Router)
+  - url: /.*
     static_files: build/index.html
     upload: build/index.html
-
-  - url: /(.*)
-    static_files: build/\1
-    upload: build/(.*)
-    secure: always
-    redirect_http_response_code: 301
 
 env_variables:
   NODE_ENV: production
