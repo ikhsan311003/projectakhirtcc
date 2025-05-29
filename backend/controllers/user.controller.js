@@ -63,14 +63,22 @@ export const login = async (req, res) => {
   }
 };
 
-// Ambil data user yang sedang login
+// Mengambil data user berdasarkan token
 export const getMe = async (req, res) => {
   try {
-    const { id, name, email, role } = req.user;
-    return res.status(200).json({ id, name, email, role });
+    const user = await User.findByPk(req.user.id, {
+      attributes: ['id', 'name', 'email', 'role', 'createdAt']
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User tidak ditemukan' });
+    }
+
+    res.status(200).json(user);
   } catch (error) {
-    res.status(500).json({ message: 'Gagal mengambil data user', error: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
+
 
 

@@ -3,6 +3,7 @@ substitutions:
 
 steps:
   - name: "gcr.io/cloud-builders/gsutil"
+    dir: 'backend'
     args: ["cp", "${_ENV}", ".env"]
   - name: 'gcr.io/cloud-builders/docker'
     dir: 'backend'
@@ -12,6 +13,7 @@ steps:
     args: ['push', 'gcr.io/b-10-451011/backend-service']
 
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    dir: 'backend'
     entrypoint: 'gcloud'
     args: ['run', 'deploy', 'backend-service',
            '--image', 'gcr.io/b-10-451011/backend-service',
