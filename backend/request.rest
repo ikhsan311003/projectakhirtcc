@@ -1,4 +1,4 @@
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksIm5hbWUiOiJBa3UiLCJlbWFpbCI6IkFrdTFAc3R1ZGVudC51cG55ay5hYy5pZCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzQ4NTQxMDk3LCJleHAiOjE3NDg2Mjc0OTd9.bBTBGUXmF1hxmRslPfhN9FIMbczNALqJMflMcZ_G_Zo
 
 ### ✅ Register User Baru
 POST https://backend-projectakhir-122089089856.us-central1.run.app/api/users/register
@@ -6,7 +6,7 @@ Content-Type: application/json
 
 {
   "name": "Aku",
-  "email": "Aku1@student.upnyk.ac.id",
+  "email": "Aku12@student.upnyk.ac.id",
   "password": "12345",
   "role": "admin"
 }
@@ -129,9 +129,13 @@ Authorization: Bearer {{token}}
 }
 
 ### 🔍 Ambil Semua Review untuk Kendaraan
-GET https://backend-projectakhir-122089089856.us-central1.run.app/api/reviews/1
+GET https://backend-projectakhir-122089089856.us-central1.run.app/api/reviews/3
 Authorization: Bearer {{token}}
 
 ### 🔍 Ambil Semua Review Milik User Login
 GET https://backend-projectakhir-122089089856.us-central1.run.app/api/reviews/my-reviews
+Authorization: Bearer {{token}}
+
+### 🔍 Ambil Semua data Milik User Login
+GET https://backend-projectakhir-122089089856.us-central1.run.app/api/users/me
 Authorization: Bearer {{token}}
