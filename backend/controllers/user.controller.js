@@ -63,13 +63,14 @@ export const login = async (req, res) => {
   }
 };
 
-// GET /me
+// Ambil data user yang sedang login
 export const getMe = async (req, res) => {
   try {
     const { id, name, email, role } = req.user;
-    res.status(200).json({ id, name, email, role });
-  } catch (err) {
-    res.status(500).json({ message: 'Gagal mengambil data pengguna' });
+    return res.status(200).json({ id, name, email, role });
+  } catch (error) {
+    res.status(500).json({ message: 'Gagal mengambil data user', error: error.message });
   }
 };
+
 

@@ -136,6 +136,7 @@ Authorization: Bearer {{token}}
 GET https://backend-projectakhir-122089089856.us-central1.run.app/api/reviews/my-reviews
 Authorization: Bearer {{token}}
 
-### 🔍 Ambil Semua data Milik User Login
+### ✅ Ambil Data User Login
 GET https://backend-projectakhir-122089089856.us-central1.run.app/api/users/me
 Authorization: Bearer {{token}}
+
