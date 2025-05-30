@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { User } from '../models/index.js';
 
-// Register
+// ✅ Register
 export const register = async (req, res) => {
   const { name, email, password } = req.body;
   try {
@@ -25,7 +25,7 @@ export const register = async (req, res) => {
   }
 };
 
-// Login
+// ✅ Login
 export const login = async (req, res) => {
   const { email, password } = req.body;
   console.log('🔐 Login request:', email);
@@ -63,22 +63,28 @@ export const login = async (req, res) => {
   }
 };
 
-// Mengambil data user berdasarkan token
+// ✅ GET /api/users -> hanya untuk admin
+export const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.findAll({
+      attributes: ['id', 'name', 'email', 'role', 'createdAt'],
+    });
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// ✅ GET /api/users/me -> untuk user login
 export const getMe = async (req, res) => {
   try {
     const user = await User.findByPk(req.user.id, {
-      attributes: ['id', 'name', 'email', 'role', 'createdAt']
+      attributes: ['id', 'name', 'email', 'role', 'createdAt'],
     });
-
-    if (!user) {
-      return res.status(404).json({ message: 'User tidak ditemukan' });
-    }
+    if (!user) return res.status(404).json({ message: 'User tidak ditemukan' });
 
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
-
-
-

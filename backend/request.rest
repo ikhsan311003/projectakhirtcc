@@ -1,4 +1,4 @@
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksIm5hbWUiOiJBa3UiLCJlbWFpbCI6IkFrdTFAc3R1ZGVudC51cG55ay5hYy5pZCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzQ4NTQzMDE3LCJleHAiOjE3NDg2Mjk0MTd9.M4u3DGPnUUEKsFo-fruTyOVwgHCcPpVvsxOPAmK48Xc
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsIm5hbWUiOiJJa2hzYW4iLCJlbWFpbCI6IjEyMzIyMDAyNEBzdHVkZW50LnVwbnlrLmFjLmlkIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzQ4NjI0MzQ5LCJleHAiOjE3NDg3MTA3NDl9.wMxkO_rGDsQeFhe4k6CVinvG-HeMWb2QaYVEF9QvH1U
 
 ### ✅ Register User Baru
 POST https://backend-projectakhir-122089089856.us-central1.run.app/api/users/register
@@ -7,8 +7,7 @@ Content-Type: application/json
 {
   "name": "Aku",
   "email": "Aku12@student.upnyk.ac.id",
-  "password": "12345",
-  "role": "admin"
+  "password": "12345"
 }
 
 ### ✅ Login User
@@ -16,9 +15,17 @@ POST https://backend-projectakhir-122089089856.us-central1.run.app/api/users/log
 Content-Type: application/json
 
 {
-  "email": "Aku1@student.upnyk.ac.id",
+  "email": "123220024@student.upnyk.ac.id",
   "password": "12345"
 }
+
+### ✅ Ambil Profil User Login
+GET https://backend-projectakhir-122089089856.us-central1.run.app/api/users/me
+Authorization: Bearer {{token}}
+
+### ✅ Ambil Semua User (Admin)
+GET https://backend-projectakhir-122089089856.us-central1.run.app/api/users
+Authorization: Bearer {{token}}
 
 ### ✅ Ambil Semua Kendaraan
 GET https://backend-projectakhir-122089089856.us-central1.run.app/api/vehicles
@@ -53,7 +60,7 @@ Authorization: Bearer {{token}}
 }
 
 ### ❌ Hapus Kendaraan (Admin)
-DELETE https://backend-projectakhir-122089089856.us-central1.run.app/api/vehicles/1
+DELETE https://backend-projectakhir-122089089856.us-central1.run.app/api/vehicles/35
 Authorization: Bearer {{token}}
 
 ### ✅ Buat Sewa Kendaraan (User)
@@ -135,8 +142,3 @@ Authorization: Bearer {{token}}
 ### 🔍 Ambil Semua Review Milik User Login
 GET https://backend-projectakhir-122089089856.us-central1.run.app/api/reviews/my-reviews
 Authorization: Bearer {{token}}
-
-### ✅ Ambil Data User Login
-GET https://backend-projectakhir-122089089856.us-central1.run.app/api/users/me
-Authorization: Bearer {{token}}
-
