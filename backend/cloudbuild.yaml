@@ -2,28 +2,32 @@ substitutions:
   _ENV: "gs://rentalkendaraan/.env"
 
 steps:
-  # 🔹 Ambil .env dari GCS ke /workspace
+  # Ambil file .env dari GCS
   - name: "gcr.io/cloud-builders/gsutil"
-    args: ["cp", "${_ENV}", "backend/.env"]
+    dir: 'backend'
+    args: ["cp", "${_ENV}", ".env"]
 
-  # 🔹 Build Docker image dari folder backend
+  # Build Docker image
   - name: 'gcr.io/cloud-builders/docker'
     dir: 'backend'
-    args: ['build', '-t', 'gcr.io/b-10-451011/backend-service', '.']
+    args: ['build', '--no-cache', '-t', 'gcr.io/b-10-451011/backend-service', '.']
 
-  # 🔹 Push ke Container Registry
+  # Push image ke Container Registry
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/b-10-451011/backend-service']
 
-  # 🔹 Deploy ke Cloud Run
+  # Deploy ke Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     dir: 'backend'
     entrypoint: 'gcloud'
-    args: ['run', 'deploy', 'backend-service',
-           '--image', 'gcr.io/b-10-451011/backend-service',
-           '--region', 'us-central1',
-           '--platform', 'managed',
-           '--allow-unauthenticated']
+    args:
+      - run
+      - deploy
+      - backend-service
+      - --image=gcr.io/b-10-451011/backend-service
+      - --region=us-central1
+      - --platform=managed
+      - --allow-unauthenticated
 
 images:
   - 'gcr.io/b-10-451011/backend-service'
