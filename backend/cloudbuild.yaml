@@ -2,32 +2,31 @@ substitutions:
   _ENV: "gs://rentalkendaraan/.env"
 
 steps:
-  # Ambil file .env dari GCS
   - name: "gcr.io/cloud-builders/gsutil"
-    dir: 'backend'
     args: ["cp", "${_ENV}", ".env"]
+    dir: "backend"
 
-  # Build Docker image
   - name: 'gcr.io/cloud-builders/docker'
-    dir: 'backend'
-    args: ['build', '--no-cache', '-t', 'gcr.io/b-10-451011/backend-service', '.']
+    args: ['build', '-t', 'gcr.io/b-10-451011/backend-service', '.']
+    dir: "backend"
 
-  # Push image ke Container Registry
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/b-10-451011/backend-service']
 
-  # Deploy ke Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    dir: 'backend'
     entrypoint: 'gcloud'
     args:
-      - run
-      - deploy
-      - backend-service
-      - --image=gcr.io/b-10-451011/backend-service
-      - --region=us-central1
-      - --platform=managed
-      - --allow-unauthenticated
+      - 'run'
+      - 'deploy'
+      - 'backend-service'
+      - '--image'
+      - 'gcr.io/b-10-451011/backend-service'
+      - '--region'
+      - 'us-central1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+    dir: "backend"
 
 images:
   - 'gcr.io/b-10-451011/backend-service'
