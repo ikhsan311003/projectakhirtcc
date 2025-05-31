@@ -3,6 +3,7 @@ import Vehicle from './Vehicle.js';
 import Rental from './Rental.js';
 import Payment from './Payment.js';
 import Review from './Review.js';
+import Favorite from './Favorite.js'; // ✅ tambahkan ini
 
 // =====================
 // 📦 ASSOCIATIONS
@@ -28,10 +29,23 @@ Review.belongsTo(Vehicle, { foreignKey: 'vehicle_id' });
 User.hasMany(Review, { foreignKey: 'user_id' });
 Review.belongsTo(User, { foreignKey: 'user_id' });
 
+// =====================
+// 🧡 User ↔ Favorite ↔ Vehicle
+// =====================
+
+// User ↔ Favorite
+User.hasMany(Favorite, { foreignKey: 'user_id' });
+Favorite.belongsTo(User, { foreignKey: 'user_id' });
+
+// Vehicle ↔ Favorite
+Vehicle.hasMany(Favorite, { foreignKey: 'vehicle_id' });
+Favorite.belongsTo(Vehicle, { foreignKey: 'vehicle_id' });
+
 export {
   User,
   Vehicle,
   Rental,
   Payment,
-  Review
+  Review,
+  Favorite 
 };

@@ -142,3 +142,15 @@ Authorization: Bearer {{token}}
 ### 🔍 Ambil Semua Review Milik User Login
 GET https://backend-projectakhir-122089089856.us-central1.run.app/api/reviews/my-reviews
 Authorization: Bearer {{token}}
+
+### ✅ Toggle Favorite (Tambah atau Hapus)
+POST https://backend-projectakhir-122089089856.us-central1.run.app/api/favorites/1
+Authorization: Bearer {{token}}
+
+### 🔍 Ambil Semua Favorite Milik User Login
+GET https://backend-projectakhir-122089089856.us-central1.run.app/api/favorites
+Authorization: Bearer {{token}}
+
+### 🔢 Total Favorite Milik User Login
+GET https://backend-projectakhir-122089089856.us-central1.run.app/api/favorites/total
+Authorization: Bearer {{token}}

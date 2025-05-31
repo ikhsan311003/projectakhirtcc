@@ -8,6 +8,7 @@ import vehicleRoutes from './routes/vehicle.routes.js';
 import rentalRoutes from './routes/rental.routes.js';
 import paymentRoutes from './routes/payment.routes.js';
 import reviewRoutes from './routes/review.routes.js';
+import favoriteRoutes from './routes/favorite.routes.js';
 
 dotenv.config();
 const app = express();
@@ -25,6 +26,7 @@ app.use('/api/vehicles', vehicleRoutes);
 app.use('/api/rentals', rentalRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/reviews', reviewRoutes);
+app.use('/api/favorites', favoriteRoutes);
 
 // Root endpoint
 app.get('/', (req, res) => {
